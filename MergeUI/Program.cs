@@ -14,6 +14,7 @@ using Postulate.Orm.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
+using System.Threading;
 
 namespace Postulate.MergeUI
 {
@@ -66,8 +67,7 @@ namespace Postulate.MergeUI
                 var schemaMergeGenericType = schemaMergeBaseType.MakeGenericType(dbType);
                 var db = Activator.CreateInstance(dbType, config) as IDb;
                 using (var cn = OpenOrCreateDb(db, config))
-                {
-                    cn.Open();
+                {                    
                     var schemaMerge = Activator.CreateInstance(schemaMergeGenericType) as ISchemaMerge;
                     var actions = schemaMerge.Compare(cn);
                     Dictionary<Orm.Merge.Action.MergeAction, LineRange> lineRanges;
@@ -92,9 +92,28 @@ namespace Postulate.MergeUI
                 string dbName;
                 using (IDbConnection cnMaster = TryGetMasterDb(config, db.ConnectionName, out dbName))
                 {
-                    cnMaster.Execute($"CREATE DATABASE [{dbName}]", commandTimeout: 60);
+                    cnMaster.Execute($"CREATE DATABASE [{dbName}]", commandTimeout: 60);                    
                 }
-                result = db.GetConnection();
+
+                MessageBox.Show($"Database {dbName} was created successfully.");
+
+                int openAttempt = 0;
+                const int maxAttempts = 100;
+                while (openAttempt < 100)
+                {
+                    try
+                    {
+                        openAttempt++;
+                        result = db.GetConnection();
+                        result.Open();
+                    }
+                    catch
+                    {
+                        Thread.Sleep(25);
+                        if (openAttempt > maxAttempts) throw new Exception($"Couldn't open connection to {dbName}. Please try simply restarting Postulate Merge.");
+                    }
+                }
+
             }
 
             return result;

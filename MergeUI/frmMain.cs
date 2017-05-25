@@ -37,6 +37,7 @@ namespace Postulate.MergeUI
         private void OpenAssembly()
         {
             OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Title = $"Postulate Schema Merge {Application.ProductVersion} - Open Assembly";
             dlg.Filter = "Assemblies|*.dll;*.exe|All Files|*.*";
             if (dlg.ShowDialog() == DialogResult.OK)
             {

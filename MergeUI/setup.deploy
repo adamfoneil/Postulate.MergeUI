@@ -4,9 +4,9 @@ Adam O'Neil Software
 https://adamosoftware.github.io/Postulate.Orm/
 Postulate Schema Merge
 https://adamosoftware.github.io/Postulate.Orm/
-1.0.4
+1.0.6
 TRUE
-42879
+42880
 C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\Schema_Merge.ico
 Copyright © 2017 Adam O'Neil Software
 
@@ -14,7 +14,7 @@ Copyright © 2017 Adam O'Neil Software
 TRUE
 
 
-TRUE
+FALSE
 %PROGRAMFILES%\Adam O'Neil Software\Postulate Schema Merge
 %COMMONFILES%\Adam O'Neil Software\Postulate Schema Merge
 %PROGRAMSMENU%\Postulate Schema Merge
@@ -102,63 +102,63 @@ Description of this component to help the user to determine if it should be inst
 1
 FALSE
 +
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\AoOptions.dll
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\AoOptions.dll
 3
 1
 TRUE
 TRUE
 FALSE
 FALSE
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\Dapper.dll
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\Dapper.dll
 3
 1
 TRUE
 TRUE
 FALSE
 FALSE
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\FastColoredTextBox.dll
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\FastColoredTextBox.dll
 3
 1
 TRUE
 TRUE
 FALSE
 FALSE
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\Newtonsoft.Json.dll
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\Newtonsoft.Json.dll
 3
 1
 TRUE
 TRUE
 FALSE
 FALSE
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\PostulateMergeUI.exe
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\PostulateMergeUI.exe
 3
 1
 TRUE
 TRUE
 FALSE
 FALSE
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\PostulateOrm.dll
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\PostulateOrm.dll
 3
 1
 TRUE
 TRUE
 FALSE
 FALSE
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\ReflectionHelper.dll
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\ReflectionHelper.dll
 3
 1
 TRUE
 TRUE
 FALSE
 FALSE
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\WinFormsExt.dll
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\WinFormsExt.dll
 3
 1
 TRUE
 TRUE
 FALSE
 FALSE
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\XmlSerializerHelper.dll
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\XmlSerializerHelper.dll
 3
 1
 TRUE
@@ -173,7 +173,7 @@ FALSE
 1
 FALSE
 +
-C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\PostulateORM\MergeUI\bin\Release\PostulateMergeUI.exe
+C:\Users\Adam\Dropbox\Visual Studio 2017\Projects\Postulate.MergeUI\MergeUI\bin\Release\PostulateMergeUI.exe
 4
 Postulate Schema Merge
 
