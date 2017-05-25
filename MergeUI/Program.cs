@@ -25,7 +25,7 @@ namespace Postulate.MergeUI
         {
             try
             {
-                Dictionary<string, MergeViewModel> actions = null;
+                Dictionary<string, MergeViewModel> vm = null;
                 string fileName = null;
 
                 if (args?.Length == 1)
@@ -34,8 +34,8 @@ namespace Postulate.MergeUI
                     if (File.Exists(assembly))
                     {
                         fileName = assembly;
-                        actions = GetMergeActions(assembly);
-                        if (!actions.Any())
+                        vm = GetMergeViewModel(assembly);
+                        if (!vm.Any(item => item.Value.Actions.Any()))
                         {
                             Console.WriteLine($"Postulate: No model changes to merge for {assembly}.");
                             return;
@@ -45,7 +45,7 @@ namespace Postulate.MergeUI
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new frmMain() { MergeActions = actions, AssemblyFilename = fileName });
+                Application.Run(new frmMain() { MergeActions = vm, AssemblyFilename = fileName });
             }
             catch (Exception exc)
             {
@@ -53,7 +53,7 @@ namespace Postulate.MergeUI
             }
         }
 
-        internal static Dictionary<string, MergeViewModel> GetMergeActions(string assemblyFile)
+        internal static Dictionary<string, MergeViewModel> GetMergeViewModel(string assemblyFile)
         {
             Dictionary<string, MergeViewModel> results = new Dictionary<string, MergeViewModel>();
 

@@ -230,7 +230,7 @@ namespace Postulate.MergeUI
         public new void Refresh()
         {
             base.Refresh();
-            MergeActions = Program.GetMergeActions(tbAssembly.Text);
+            MergeActions = Program.GetMergeViewModel(tbAssembly.Text);
             BuildTreeView();
         }
 
