@@ -39,13 +39,23 @@
     <Reference Include="AoOptions, Version=1.5.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AoOptions.1.5.10\lib\net461\AoOptions.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PostulateOrm, Version=0.9.107.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Postulate.Orm.0.9.107\lib\net461\PostulateOrm.dll</HintPath>
+    </Reference>
+    <Reference Include="ReflectionHelper, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AoReflectionHelper.1.0.1\lib\net461\ReflectionHelper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -107,12 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PostulateV1\Postulate.Orm.csproj">
-      <Project>{74D32DED-6B61-4C06-99B7-4BF11A7325E0}</Project>
-      <Name>Postulate.Orm</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\SchemaMerge.ico" />
