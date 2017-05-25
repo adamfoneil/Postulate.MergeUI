@@ -12,6 +12,8 @@ using Postulate.Orm;
 using Postulate.Orm.Merge;
 using Postulate.Orm.Interfaces;
 using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace Postulate.MergeUI
 {
@@ -63,7 +65,7 @@ namespace Postulate.MergeUI
                 Type schemaMergeBaseType = typeof(SchemaMerge<>);
                 var schemaMergeGenericType = schemaMergeBaseType.MakeGenericType(dbType);
                 var db = Activator.CreateInstance(dbType, config) as IDb;
-                using (var cn = db.GetConnection())
+                using (var cn = OpenOrCreateDb(db, config))
                 {
                     cn.Open();
                     var schemaMerge = Activator.CreateInstance(schemaMergeGenericType) as ISchemaMerge;
@@ -77,17 +79,58 @@ namespace Postulate.MergeUI
             return results;
         }
 
+        private static IDbConnection OpenOrCreateDb(IDb db, Configuration config)
+        {
+            var result = db.GetConnection();
+
+            try
+            {
+                result.Open();
+            }
+            catch (SqlException)
+            {
+                string dbName;
+                using (IDbConnection cnMaster = TryGetMasterDb(config, db.ConnectionName, out dbName))
+                {
+                    cnMaster.Execute($"CREATE DATABASE [{dbName}]", commandTimeout: 60);
+                }
+                result = db.GetConnection();
+            }
+
+            return result;
+        }
+
+        private static IDbConnection TryGetMasterDb(Configuration config, string connectionName, out string dbName)
+        {
+            var tokens = ParseConnectionTokens(config.ConnectionStrings.ConnectionStrings[connectionName].ConnectionString);
+            var dbTokens = new string[] { "Database", "Initial Catalog" };
+            dbName = Coalesce(tokens, dbTokens);
+            string connectionString = JoinReplace(tokens, dbTokens, "master");
+            return new SqlConnection(connectionString);
+        }
+
+        private static string JoinReplace(Dictionary<string, string> tokens, string[] lookForKey, string setValue)
+        {
+            string key = lookForKey.First(item => tokens.ContainsKey(item));
+            tokens[key] = setValue;
+            return string.Join(";", tokens.Select(keyPair => $"{keyPair.Key}={keyPair.Value}"));
+        }
+
         internal static string ParseConnectionInfo(IDbConnection connection)
         {
-            Dictionary<string, string> nameParts = connection
-                .ConnectionString.Split(';')
+            Dictionary<string, string> nameParts = ParseConnectionTokens(connection.ConnectionString);
+
+            return $"{Coalesce(nameParts, "Data Source", "Server")}.{Coalesce(nameParts, "Database", "Initial Catalog")}";
+        }
+
+        private static Dictionary<string, string> ParseConnectionTokens(string connectionString)
+        {
+            return connectionString.Split(';')
                 .Select(s =>
                 {
                     string[] parts = s.Split('=');
                     return new KeyValuePair<string, string>(parts[0].Trim(), parts[1].Trim());
                 }).ToDictionary(item => item.Key, item => item.Value);
-
-            return $"{Coalesce(nameParts, "Data Source", "Server")}.{Coalesce(nameParts, "Database", "Initial Catalog")}";
         }
 
         private static string Coalesce(Dictionary<string, string> dictionary, params string[] keys)
