@@ -15,6 +15,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Postulate.MergeUI
 {
@@ -109,7 +110,8 @@ namespace Postulate.MergeUI
                     }
                     catch
                     {
-                        Thread.Sleep(25);
+                        Debug.WriteLine($"Open attempt {openAttempt}");
+                        Thread.Sleep(150);
                         if (openAttempt > maxAttempts) throw new Exception($"Couldn't open connection to {dbName}. Please try simply restarting Postulate Merge.");
                     }
                 }

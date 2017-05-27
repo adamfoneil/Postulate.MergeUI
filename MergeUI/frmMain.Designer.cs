@@ -162,7 +162,7 @@ namespace Postulate.MergeUI
         '\'',
         '\''};
             this.tbSQL.AutoIndentCharsPatterns = "";
-            this.tbSQL.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.tbSQL.AutoScrollMinSize = new System.Drawing.Size(0, 14);
             this.tbSQL.BackBrush = null;
             this.tbSQL.CharHeight = 14;
             this.tbSQL.CharWidth = 8;
@@ -182,6 +182,8 @@ namespace Postulate.MergeUI
             this.tbSQL.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("tbSQL.ServiceColors")));
             this.tbSQL.Size = new System.Drawing.Size(373, 286);
             this.tbSQL.TabIndex = 0;
+            this.tbSQL.WordWrap = true;
+            this.tbSQL.WordWrapIndent = 3;
             this.tbSQL.Zoom = 100;
             // 
             // toolStrip1
