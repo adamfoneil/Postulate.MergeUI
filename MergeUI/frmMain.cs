@@ -250,5 +250,17 @@ namespace Postulate.MergeUI
         {
             _options.SplitterPosition = e.SplitX;
         }
+
+        private void copyMessageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Clipboard.SetText(lblErrors.Text);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
     }
 }
