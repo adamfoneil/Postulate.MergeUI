@@ -48,6 +48,11 @@ namespace Postulate.MergeUI
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new frmMain() { MergeActions = vm, AssemblyFilename = fileName });
             }
+            catch (ReflectionTypeLoadException exc)
+            {
+                string failedTypes = string.Join("\r\n", exc.LoaderExceptions.Select(e => e.Message).Take(3));
+                MessageBox.Show(exc.Message + " Up to the first 3 load exceptions are shown below:\r\n\r\n" + failedTypes);
+            }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
@@ -68,7 +73,7 @@ namespace Postulate.MergeUI
                 var schemaMergeGenericType = schemaMergeBaseType.MakeGenericType(dbType);
                 var db = Activator.CreateInstance(dbType, config) as IDb;
                 using (var cn = OpenOrCreateDb(db, config))
-                {                    
+                {
                     var schemaMerge = Activator.CreateInstance(schemaMergeGenericType) as ISchemaMerge;
                     var actions = schemaMerge.Compare(cn);
                     Dictionary<Orm.Merge.Action.MergeAction, LineRange> lineRanges;
