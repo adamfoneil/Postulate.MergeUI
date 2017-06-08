@@ -48,11 +48,6 @@ namespace Postulate.MergeUI
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new frmMain() { MergeActions = vm, AssemblyFilename = fileName });
             }
-            catch (ReflectionTypeLoadException exc)
-            {
-                string failedTypes = string.Join("\r\n", exc.LoaderExceptions.Select(e => e.Message).Take(3));
-                MessageBox.Show(exc.Message + " Up to the first 3 load exceptions are shown below:\r\n\r\n" + failedTypes);
-            }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
@@ -61,28 +56,36 @@ namespace Postulate.MergeUI
 
         internal static Dictionary<string, MergeViewModel> GetMergeViewModel(string assemblyFile)
         {
-            Dictionary<string, MergeViewModel> results = new Dictionary<string, MergeViewModel>();
-
-            var assembly = Assembly.LoadFile(assemblyFile);
-            var config = ConfigurationManager.OpenExeConfiguration(assembly.Location);
-            var dbTypes = assembly.GetTypes().Where(t => t.IsDerivedFromGeneric(typeof(SqlServerDb<>)));
-
-            foreach (var dbType in dbTypes)
+            try
             {
-                Type schemaMergeBaseType = typeof(SchemaMerge<>);
-                var schemaMergeGenericType = schemaMergeBaseType.MakeGenericType(dbType);
-                var db = Activator.CreateInstance(dbType, config) as IDb;
-                using (var cn = OpenOrCreateDb(db, config))
-                {
-                    var schemaMerge = Activator.CreateInstance(schemaMergeGenericType) as ISchemaMerge;
-                    var actions = schemaMerge.Compare(cn);
-                    Dictionary<Orm.Merge.Action.MergeAction, LineRange> lineRanges;
-                    var script = schemaMerge.GetScript(cn, actions, out lineRanges);
-                    results.Add(dbType.Name, new MergeViewModel { Db = db, Merge = schemaMerge, Actions = actions, LineRanges = lineRanges, Script = script, ServerAndDatabase = ParseConnectionInfo(cn) });
-                }
-            }
+                Dictionary<string, MergeViewModel> results = new Dictionary<string, MergeViewModel>();
 
-            return results;
+                var assembly = Assembly.LoadFile(assemblyFile);
+                var config = ConfigurationManager.OpenExeConfiguration(assembly.Location);
+                var dbTypes = assembly.GetTypes().Where(t => t.IsDerivedFromGeneric(typeof(SqlServerDb<>)));
+
+                foreach (var dbType in dbTypes)
+                {
+                    Type schemaMergeBaseType = typeof(SchemaMerge<>);
+                    var schemaMergeGenericType = schemaMergeBaseType.MakeGenericType(dbType);
+                    var db = Activator.CreateInstance(dbType, config) as IDb;
+                    using (var cn = OpenOrCreateDb(db, config))
+                    {
+                        var schemaMerge = Activator.CreateInstance(schemaMergeGenericType) as ISchemaMerge;
+                        var actions = schemaMerge.Compare(cn);
+                        Dictionary<Orm.Merge.Action.MergeAction, LineRange> lineRanges;
+                        var script = schemaMerge.GetScript(cn, actions, out lineRanges);
+                        results.Add(dbType.Name, new MergeViewModel { Db = db, Merge = schemaMerge, Actions = actions, LineRanges = lineRanges, Script = script, ServerAndDatabase = ParseConnectionInfo(cn) });
+                    }
+                }
+
+                return results;
+            }
+            catch (ReflectionTypeLoadException exc)
+            {
+                string failedTypes = string.Join("\r\n", exc.LoaderExceptions.GroupBy(item => item.Message).Select(grp => grp.Key).Take(3));
+                throw new Exception(exc.Message + " Up to the first 3 load exceptions are shown below:\r\n\r\n" + failedTypes);
+            }
         }
 
         private static IDbConnection OpenOrCreateDb(IDb db, Configuration config)
