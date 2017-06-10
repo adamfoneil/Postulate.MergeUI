@@ -155,10 +155,15 @@ namespace Postulate.MergeUI
         private static Dictionary<string, string> ParseConnectionTokens(string connectionString)
         {
             return connectionString.Split(';')
-                .Select(s =>
+                .Where(s =>
                 {
                     string[] parts = s.Split('=');
-                    return new KeyValuePair<string, string>(parts[0].Trim(), parts[1].Trim());
+                    return (parts.Length == 2);
+                })
+                .Select(s =>
+                {
+                    string[] parts = s.Split('=');                
+                    return new KeyValuePair<string, string>(parts[0].Trim(), parts[1].Trim());                    
                 }).ToDictionary(item => item.Key, item => item.Value);
         }
 
