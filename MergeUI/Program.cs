@@ -16,6 +16,7 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Threading;
 using System.Diagnostics;
+using AdamOneilSoftware;
 
 namespace Postulate.MergeUI
 {
@@ -50,7 +51,7 @@ namespace Postulate.MergeUI
             }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message);
+                exc.ShowMessage();
             }
         }
 
@@ -62,6 +63,7 @@ namespace Postulate.MergeUI
 
                 var assembly = Assembly.LoadFile(assemblyFile);
                 var config = ConfigurationManager.OpenExeConfiguration(assembly.Location);
+
                 var dbTypes = assembly.GetTypes().Where(t => t.IsDerivedFromGeneric(typeof(SqlServerDb<>)));
 
                 foreach (var dbType in dbTypes)

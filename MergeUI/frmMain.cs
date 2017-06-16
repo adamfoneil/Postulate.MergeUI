@@ -30,7 +30,7 @@ namespace Postulate.MergeUI
             }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message);
+                exc.ShowMessage();
             }
         }
 
@@ -117,7 +117,7 @@ namespace Postulate.MergeUI
             }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message);
+                exc.ShowMessage();
             }            
         }
 
