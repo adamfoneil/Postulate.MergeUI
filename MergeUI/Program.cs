@@ -74,7 +74,7 @@ namespace Postulate.MergeUI
                     using (var cn = OpenOrCreateDb(db, config))
                     {
                         var schemaMerge = Activator.CreateInstance(schemaMergeGenericType) as ISchemaMerge;
-                        var actions = schemaMerge.Compare(cn);
+                        var actions = schemaMerge.Compare(cn, db.Version);
                         Dictionary<Orm.Merge.Action.MergeAction, LineRange> lineRanges;
                         var script = schemaMerge.GetScript(cn, actions, out lineRanges);
                         results.Add(dbType.Name, new MergeViewModel { Db = db, Merge = schemaMerge, Actions = actions, LineRanges = lineRanges, Script = script, ServerAndDatabase = ParseConnectionInfo(cn) });

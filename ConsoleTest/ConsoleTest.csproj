@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Postulate.Orm">
-      <Version>0.9.160</Version>
+      <Version>0.9.161</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
