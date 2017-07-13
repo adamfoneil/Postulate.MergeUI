@@ -72,8 +72,8 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PostulateOrm, Version=0.9.186.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Postulate.Orm.0.9.186\lib\net461\PostulateOrm.dll</HintPath>
+    <Reference Include="PostulateOrm, Version=0.9.194.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Postulate.Orm.0.9.194\lib\net461\PostulateOrm.dll</HintPath>
     </Reference>
     <Reference Include="ReflectionHelper, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AoReflectionHelper.1.0.1\lib\net461\ReflectionHelper.dll</HintPath>
